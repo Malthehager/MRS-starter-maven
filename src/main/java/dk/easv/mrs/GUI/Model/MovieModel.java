@@ -1,8 +1,11 @@
+// project structure
 package dk.easv.mrs.GUI.Model;
 import dk.easv.mrs.BE.Movie;
 import dk.easv.mrs.BLL.MovieManager;
+//javafx imports
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+//java imports
 import java.util.List;
 
 public class MovieModel {
@@ -27,5 +30,28 @@ public class MovieModel {
         List<Movie> searchResults = movieManager.searchMovies(query);
         moviesToBeViewed.clear();
         moviesToBeViewed.addAll(searchResults);
+    }
+
+    public Movie createMovie(Movie newMovie) throws Exception {
+        Movie movieCreated = movieManager.createMovie(newMovie);
+        moviesToBeViewed.add(movieCreated);
+        return movieCreated;
+
+    }
+
+    public void updateMovie(Movie movieToBeUpdated) throws Exception {
+        movieManager.updateMovie(movieToBeUpdated);
+
+        int index = moviesToBeViewed.indexOf(movieToBeUpdated);
+        moviesToBeViewed.set(index, movieToBeUpdated);
+
+    }
+
+    public void deleteMovie(Movie selectedMovie) throws Exception {
+        //remove movie in the DAL layer
+        movieManager.deleteMovie(selectedMovie);
+        // update observable list
+        moviesToBeViewed.remove(selectedMovie);
+
     }
 }
