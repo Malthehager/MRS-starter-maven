@@ -39,11 +39,15 @@ public class MovieModel {
 
     }
 
-    public void updateMovie(Movie movieToBeUpdated) throws Exception {
-        movieManager.updateMovie(movieToBeUpdated);
+    public void updateMovie(Movie updatedMovie) throws Exception {
+        movieManager.updateMovie(updatedMovie);
 
-        int index = moviesToBeViewed.indexOf(movieToBeUpdated);
-        moviesToBeViewed.set(index, movieToBeUpdated);
+        Movie m = moviesToBeViewed.get(moviesToBeViewed.indexOf(updatedMovie));
+        m.setTitle(updatedMovie.getTitle());
+        m.setYear(updatedMovie.getYear());
+
+        //int index = moviesToBeViewed.indexOf(movieToBeUpdated);
+        //moviesToBeViewed.set(index, movieToBeUpdated);
 
     }
 
