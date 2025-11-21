@@ -63,6 +63,21 @@ public class MovieViewController implements Initializable {
 
             }
         });
+        txtMovieSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            movieModel.getObservableMovies().setPredicate(movie -> {
+
+                // If filter text is empty, display all movies.
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (movie.getTitle().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else return Integer.toString(movie.getYear()).contains(lowerCaseFilter);
+            });
+        });
 
     }
 

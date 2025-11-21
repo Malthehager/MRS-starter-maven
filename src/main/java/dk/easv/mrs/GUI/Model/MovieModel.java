@@ -5,12 +5,14 @@ import dk.easv.mrs.BLL.MovieManager;
 //javafx imports
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 //java imports
 import java.util.List;
 
 public class MovieModel {
 
     private ObservableList<Movie> moviesToBeViewed;
+    private FilteredList<Movie> filteredList;
 
     private MovieManager movieManager;
 
@@ -18,12 +20,13 @@ public class MovieModel {
         movieManager = new MovieManager();
         moviesToBeViewed = FXCollections.observableArrayList();
         moviesToBeViewed.addAll(movieManager.getAllMovies());
+        filteredList = new FilteredList<>(moviesToBeViewed);
     }
 
 
 
-    public ObservableList<Movie> getObservableMovies() {
-        return moviesToBeViewed;
+    public FilteredList<Movie> getObservableMovies() {
+        return filteredList;
     }
 
     public void searchMovie(String query) throws Exception {
