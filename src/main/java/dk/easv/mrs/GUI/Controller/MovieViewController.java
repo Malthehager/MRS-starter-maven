@@ -3,6 +3,7 @@ package dk.easv.mrs.GUI.Controller;
 import dk.easv.mrs.BE.Movie;
 import dk.easv.mrs.GUI.Model.MovieModel;
 // javafx imports
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -78,7 +79,9 @@ public class MovieViewController implements Initializable {
                 } else return Integer.toString(movie.getYear()).contains(lowerCaseFilter);
             });
         });
-
+        SortedList<Movie> sortedData = new SortedList<>(movieModel.getObservableMovies());
+        sortedData.comparatorProperty().bind(tblMovies.comparatorProperty());
+        tblMovies.setItems(sortedData);
     }
 
     private void displayError(Throwable t)
